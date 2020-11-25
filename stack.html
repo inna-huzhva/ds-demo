@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+<style>
+  #stack-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .stack {
+    display: flex;
+    flex-direction: column-reverse; 
+    min-height: 200px;
+    padding-top: 20px;
+    width: 200px;
+    background-color: #41aea9;   
+    border: 3px solid black;
+    border-top: none;
+    font-size: 30px;
+  }
+  .element {
+    border: 1px solid black;
+    text-align: center;
+    margin: 0 3px 3px;
+    color: #213e3b;
+    background-color: #a6f6f1;
+    padding: 5px 10px;
+  }
+</style>
+
+<script src="stack.js"></script>
+</head>
+
+<body>
+<div class="nav-bar">
+  <a class="nav" href="stack.html">Stack</a>
+  <a class="nav" href="queue.html">Queue</a>
+  <a class="nav" href="deque.html">Deque</a>
+</div>
+<div class="header">Stack</div>
+<div class="actions">
+  <div class="left">
+    <input id="new-element" type="text" onKeyUp="handleInput()" />
+    <button id="push-button" type="button" onclick="handlePush()" disabled>Push</button>
+  </div>
+  <div class="right">
+    <button id="pop-button" type="button" onclick="handlePop()" disabled>Pop</button>
+    <input id="popped-element" type="text" readonly />
+  </div>
+</div>
+<div id="stack-container"></div>
+
+<script type="text/javascript">
+  var s = newStack();
+  el("stack-container").innerHTML = render(s);
+
+  function handlePush() {
+    push(s, el("new-element").value);
+    el("stack-container").innerHTML = render(s);
+    el("pop-button").disabled = false;
+  }
+
+  function handlePop() {
+    var e = pop(s);
+    el("popped-element").value = e;
+    el("stack-container").innerHTML = render(s);
+    if (isEmpty(s)) {
+      el("pop-button").disabled = true;
+    }
+  }
+
+  function isStrEmpty(v) {
+    return /^\s*$/.test(v);
+  }
+
+  function handleInput() {
+    if (isStrEmpty(el("new-element").value)) {
+      el("push-button").disabled = true;
+    } else {
+      el("push-button").disabled = false;
+      if (this.event.code === "Enter") {
+        handlePush();
+      }
+    }
+  }
+
+  function el(id) {
+    return document.getElementById(id);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+body {
+  background-color: #e8ffff;
+  margin: 0;
+  padding-bottom: 20px;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.nav-bar {
+  background-color: #41aea9; 
+  display: flex;
+  font-size: 20px;
+  color: #e8ffff;
+}
+.nav {
+  padding: 10px 15px;
+}
+.nav:hover {
+  background-color:#a6f6f1;
+  color: #213e3b;
+}
+button {
+  cursor: pointer;
+  background-color: #41aea9;
+  border: 1px solid black; 
+  color: #e8ffff;
+  padding: 7px 10px;
+  text-align: center;
+  font-size: 17px;
+}
+button:disabled {
+  cursor: not-allowed;
+  background-color: #eee;
+  color: #213e3b;
+}
+input {
+  font-size: 15px;
+  padding: 7px 10px;
+  width: 100px;
+}
+.header {
+  height: 150px;
+  text-align: center;
+  font-size: 30px;
+  color: #213e3b;
+  padding: 30px;
+}
+.actions {
+  display: flex;
+}
+.left, .right {
+  width: 50%;
+  padding: 10px;
+}
+.left {
+  text-align: right;
+}

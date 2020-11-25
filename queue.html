@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+<style>
+  #queue-container {
+    display: flex;
+  }
+  .queue {
+    display: flex;
+    flex-direction: row-reverse;
+    overflow: auto;
+    justify-content: center;
+    padding: 0 20px;
+    margin: 0 auto;
+    margin-top: 20px;
+    min-width: 400px;
+    height: 54px;
+    background-color: #41aea9;   
+    border: 3px solid black;
+    border-right: none;
+    border-left: none;
+    font-size: 30px;
+  }
+  .element {
+    border: 1px solid black;
+    text-align: center;
+    margin: 3px 2px;
+    padding: 5px 10px;
+    color: #213e3b;
+    background-color: #a6f6f1;
+  }
+  #arrow {
+    font-size: 50px;
+    text-align: center;
+  }
+</style>
+
+<script src="queue.js"></script>
+</head>
+
+<body>
+<div class="nav-bar">
+  <a class="nav" href="stack.html">Stack</a>
+  <a class="nav" href="queue.html">Queue</a>
+  <a class="nav" href="deque.html">Deque</a>
+</div>
+<div class="header">Queue</div>
+<div class="actions">
+  <div class="left">
+    <input id="new-element" type="text" onKeyUp="handleInput()" />
+    <button id="enqueue-button" type="button" onclick="handleEnqueue()" disabled>Enqueue</button>
+  </div>
+
+  <div class="right">
+    <button id="dequeue-button" type="button" onclick="handleDequeue()" disabled>Dequeue</button>
+    <input id="popped-element" type="text" readonly />
+  </div>
+</div>
+
+<div id="queue-container"></div>
+<div id="arrow">&rarr;</div>
+
+<script type="text/javascript">
+  var q = newQueue();
+  el("queue-container").innerHTML = render(q);
+
+  function handleEnqueue() {
+    enqueue(q, el("new-element").value);
+    el("queue-container").innerHTML = render(q);
+    el("dequeue-button").disabled = false;
+  }
+  function handleDequeue() {
+    var e = dequeue(q);
+    el("popped-element").value = e;
+    el("queue-container").innerHTML = render(q);
+    if (isEmpty(q)) {
+      el("dequeue-button").disabled = true;
+    }
+  }
+
+  function isStrEmpty(v) {
+    return /^\s*$/.test(v);
+  }
+
+  function handleInput() {
+    if (isStrEmpty(el("new-element").value)) {
+      el("enqueue-button").disabled = true;
+    } else {
+      el("enqueue-button").disabled = false;
+      if (this.event.code === "Enter") {
+        handleEnqueue();
+      }
+    }
+  }
+
+  function el(id) {
+    return document.getElementById(id);
+  }
+</script>
+
+</body>
+</html>
