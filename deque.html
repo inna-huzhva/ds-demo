@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+<style>
+  #deque-container {
+    display: flex;
+  }
+  .deque {
+    display: flex;
+    overflow: auto;
+    justify-content: center;
+    padding: 0 20px;
+    margin: 0 auto;
+    margin-top: 20px;
+    min-width: 400px;
+    height: 54px;
+    background-color: #41aea9;
+    border: 3px solid black;
+    border-right: none;
+    border-left: none;
+    font-size: 30px;
+  }
+  .element {
+    border: 1px solid black;
+    text-align: center;
+    margin: 3px 2px;
+    padding: 5px 10px;
+    color: #213e3b;
+    background-color: #a6f6f1;
+  }
+
+</style>
+
+<script src="deque.js"></script>
+</head>
+
+<body>
+<div class="nav-bar">
+  <a class="nav" href="stack.html">Stack</a>
+  <a class="nav" href="queue.html">Queue</a>
+  <a class="nav" href="deque.html">Deque</a>
+</div>
+<div class="header">Deque</div>
+
+<div class="actions">
+  <div class="left">
+    <button id="push-front-button" type="button" onclick="handlePushFront()" disabled>Push Front</button>
+    <input id="new-element" type="text" onKeyUp="handleInput()" />
+    <button id="push-back-button" type="button" onclick="handlePushBack()" disabled>Push Back</button>
+  </div>
+  <div class="right">
+    <button id="pop-front-button" type="button" onclick="handlePopFront()" disabled>Pop Front</button>
+    <input id="popped-element" type="text" readonly />
+    <button id="pop-back-button" type="button" onclick="handlePopBack()" disabled>Pop Back</button>
+  </div>
+</div>
+
+<div id="deque-container"></div>
+
+<script type="text/javascript">
+  var d = newDeque();
+  el("deque-container").innerHTML = render(d);
+
+  function handlePushFront() {
+    pushFront(d, el("new-element").value);
+    el("deque-container").innerHTML = render(d);
+    el("pop-front-button").disabled = false;
+    el("pop-back-button").disabled = false;
+  }
+
+  function handlePushBack() {
+    pushBack(d, el("new-element").value);
+    el("deque-container").innerHTML = render(d);
+    el("pop-front-button").disabled = false;
+    el("pop-back-button").disabled = false;
+  }
+
+  function handlePopFront() {
+    var e = popFront(d);
+    el("popped-element").value = e;
+    el("deque-container").innerHTML = render(d);
+    if (isEmpty(d)) {
+      el("pop-front-button").disabled = true;
+      el("pop-back-button").disabled = true;
+    }
+  }
+
+  function handlePopBack() {
+    var e = popBack(d);
+    el("popped-element").value = e;
+    el("deque-container").innerHTML = render(d);
+    if (isEmpty(d)) {
+      el("pop-front-button").disabled = true;
+      el("pop-back-button").disabled = true;
+    }
+  }
+
+  function isStrEmpty(v) {
+    return /^\s*$/.test(v);
+  }
+
+  function handleInput() {
+    if (isStrEmpty(el("new-element").value)) {
+      el("push-front-button").disabled = true;
+      el("push-back-button").disabled = true;
+    } else {
+      el("push-front-button").disabled = false;
+      el("push-back-button").disabled = false;
+    }
+  }
+
+  function el(id) {
+    return document.getElementById(id);
+  }
+</script>
+
+</body>
+</html>
+
+
