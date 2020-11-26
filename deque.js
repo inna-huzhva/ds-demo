@@ -42,9 +42,11 @@ function popBack(d) {
 
 function render(d) {
   var html = '<div class="deque">';
+  html += '<div class="front">F</div>';
   for (var i = 0; i < d.length; i++) {
     html += '<div class="element">' + d[i] + '</div>';
   }
+  html += '<div class="back">B</div>';
   html += '</div>';
   return html;
 }
