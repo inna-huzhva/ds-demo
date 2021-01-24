@@ -3,40 +3,35 @@
 <head>
 <link rel="stylesheet" href="style.css">
 <style>
-  #queue-container {
+  #stack-container {
     display: flex;
-  }
-  .queue {
-    display: flex;
-    flex-direction: row-reverse;
-    overflow: auto;
     justify-content: center;
-    padding: 0 20px;
-    margin: 0 auto;
     margin-top: 20px;
-    min-width: 400px;
-    height: 54px;
+  }
+  .stack {
+    display: flex;
+    flex-direction: column-reverse; 
+    min-height: 200px;
+    padding-top: 20px;
+    width: 200px;
     background-color: #41aea9;   
     border: 3px solid black;
-    border-right: none;
-    border-left: none;
+    border-top: none;
     font-size: 30px;
   }
   .element {
+    overflow: hidden;
+    word-break: break-all;
     border: 1px solid black;
     text-align: center;
-    margin: 3px 2px;
-    padding: 5px 10px;
+    margin: 0 3px 3px;
     color: #213e3b;
     background-color: #a6f6f1;
-  }
-  #arrow {
-    font-size: 50px;
-    text-align: center;
+    padding: 5px 10px;
   }
 </style>
 
-<script src="queue.js"></script>
+<script src="stack.js"></script>
 </head>
 
 <body>
@@ -46,37 +41,35 @@
   <a class="nav" href="queue.html">Нова черга</a>
   <a class="nav" href="deque.html">Новий дек</a>
 </div>
-<div class="header">Черга</div>
+<div class="header">Стек</div>
 <div class="actions">
   <div class="left">
     <input id="new-element" type="text" onKeyUp="handleInput()" />
-    <button id="enqueue-button" type="button" onclick="handleEnqueue()" disabled>Enqueue</button>
+    <button id="push-button" type="button" onclick="handlePush()" disabled>Push</button>
   </div>
-
   <div class="right">
-    <button id="dequeue-button" type="button" onclick="handleDequeue()" disabled>Dequeue</button>
+    <button id="pop-button" type="button" onclick="handlePop()" disabled>Pop</button>
     <input id="popped-element" type="text" readonly />
   </div>
 </div>
-
-<div id="queue-container"></div>
-<div id="arrow">&rarr;</div>
+<div id="stack-container"></div>
 
 <script type="text/javascript">
-  var q = newQueue();
-  el("queue-container").innerHTML = render(q);
+  var s = newStack();
+  el("stack-container").innerHTML = render(s);
 
-  function handleEnqueue() {
-    enqueue(q, el("new-element").value);
-    el("queue-container").innerHTML = render(q);
-    el("dequeue-button").disabled = false;
+  function handlePush() {
+    push(s, el("new-element").value);
+    el("stack-container").innerHTML = render(s);
+    el("pop-button").disabled = false;
   }
-  function handleDequeue() {
-    var e = dequeue(q);
+
+  function handlePop() {
+    var e = pop(s);
     el("popped-element").value = e;
-    el("queue-container").innerHTML = render(q);
-    if (isEmpty(q)) {
-      el("dequeue-button").disabled = true;
+    el("stack-container").innerHTML = render(s);
+    if (isEmpty(s)) {
+      el("pop-button").disabled = true;
     }
   }
 
@@ -86,11 +79,11 @@
 
   function handleInput() {
     if (isStrEmpty(el("new-element").value)) {
-      el("enqueue-button").disabled = true;
+      el("push-button").disabled = true;
     } else {
-      el("enqueue-button").disabled = false;
+      el("push-button").disabled = false;
       if (this.event.code === "Enter") {
-        handleEnqueue();
+        handlePush();
       }
     }
   }

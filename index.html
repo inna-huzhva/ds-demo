@@ -3,94 +3,112 @@
 <head>
 <link rel="stylesheet" href="style.css">
 <style>
-  #stack-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  .stack {
-    display: flex;
-    flex-direction: column-reverse; 
-    min-height: 200px;
-    padding-top: 20px;
-    width: 200px;
-    background-color: #41aea9;   
-    border: 3px solid black;
-    border-top: none;
-    font-size: 30px;
-  }
-  .element {
-    overflow: hidden;
-    word-break: break-all;
-    border: 1px solid black;
-    text-align: center;
-    margin: 0 3px 3px;
-    color: #213e3b;
-    background-color: #a6f6f1;
-    padding: 5px 10px;
-  }
+.flex-container {
+  display: flex;
+} 
+.stack {
+  width: 33%;
+  margin: 20px;
+  margin-top: 10px;
+  text-align: justify;
+  font-size: 20px;
+} 
+.queue {
+  width: 33%;
+  margin: 20px;
+  margin-top: 10px;
+  text-align: justify;
+  font-size: 20px;
+}
+.dequeue {
+  width: 33%;
+  margin: 20px;
+  margin-top: 10px;
+  text-align: justify;
+  font-size: 20px;
+}
+.head {
+  text-align: center;
+}
+.pictures {
+  display: block;
+  margin: 0 auto;
+}
+.button {
+  display: block;
+  width: 60%;
+  margin: 20px auto;
+  padding: 10px;
+  background-color: #41aea9;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
+
+}
 </style>
 
-<script src="stack.js"></script>
+
 </head>
 
 <body>
+
 <div class="nav-bar">
-  <a class="nav" href="index.html">Stack</a>
-  <a class="nav" href="queue.html">Queue</a>
-  <a class="nav" href="deque.html">Deque</a>
+  <a class="nav" href="index.html">Головна</a>
+  <a class="nav" href="stack.html">Новий стек</a>
+  <a class="nav" href="queue.html">Нова черга</a>
+  <a class="nav" href="deque.html">Новий дек</a>
 </div>
-<div class="header">Stack</div>
-<div class="actions">
-  <div class="left">
-    <input id="new-element" type="text" onKeyUp="handleInput()" />
-    <button id="push-button" type="button" onclick="handlePush()" disabled>Push</button>
-  </div>
-  <div class="right">
-    <button id="pop-button" type="button" onclick="handlePop()" disabled>Pop</button>
-    <input id="popped-element" type="text" readonly />
-  </div>
+<div class="flex-container">
+<div class="stack">
+  <h1 class="head">Cтек</h1>
+  <p><strong>Cтек</strong> - різновид лінійного списку, структура даних, яка працює за принципом «останнім прийшов - першим пішов» (LIFO). Всі операції в стеку можна проводити тільки з одним елементом, який міститься на верхівці стека та був введений в стек останнім. 
+  </p>
+  <p>
+  Основними операціями роботи зі стеком є: 
+  <ul><li>NEW - створення порожнього стеку;</li>
+  <li>PUSH - розміщення елемента в стек;</li>
+  <li>POP - вибірка елемента зі стеку (з вершини);</li>
+  <li>EMPTY - перевірка, чи порожній стек.</li>
+  </ul>
+  </p> 
+  <img class="pictures" src="stack.png" alt="Stack" width="433" height="270">
+  <a href="stack.html" class="button">Створити новий стек</a>
 </div>
-<div id="stack-container"></div>
 
-<script type="text/javascript">
-  var s = newStack();
-  el("stack-container").innerHTML = render(s);
+<div class="queue">
+  <h1 class="head">Черга</h1>
+  <p><strong>Черга</strong> - це динамічна структура даних, що працює за принципом «перший прийшов - перший пішов» (FIFO). У черги є голова (head) та хвіст (tail), елемент, що додається до черги, опиняється в її хвості, елемент, що видаляється з черги, знаходиться в її голові.
+  </p>
+  <p>
+  Основними операціями роботи з чергою є: 
+  <ul><li>NEW - створення порожньої черги;</li>
+  <li>ENQUEUE - додавання елемента в хвіст черги;</li>
+  <li>DEQUEUE - вибірка елемента з голови черги;</li>
+  <li>EMPTY - перевірка, чи порожня черга.</li>
+  </ul>
+  </p> 
+  <img class="pictures" src="queue.png" alt="Queue" width="380" height="250">
+  <a href="queue.html" class="button">Створити нову чергу</a>
+</div>
 
-  function handlePush() {
-    push(s, el("new-element").value);
-    el("stack-container").innerHTML = render(s);
-    el("pop-button").disabled = false;
-  }
-
-  function handlePop() {
-    var e = pop(s);
-    el("popped-element").value = e;
-    el("stack-container").innerHTML = render(s);
-    if (isEmpty(s)) {
-      el("pop-button").disabled = true;
-    }
-  }
-
-  function isStrEmpty(v) {
-    return /^\s*$/.test(v);
-  }
-
-  function handleInput() {
-    if (isStrEmpty(el("new-element").value)) {
-      el("push-button").disabled = true;
-    } else {
-      el("push-button").disabled = false;
-      if (this.event.code === "Enter") {
-        handlePush();
-      }
-    }
-  }
-
-  function el(id) {
-    return document.getElementById(id);
-  }
-</script>
-
+<div class="dequeue">
+  <h1 class="head">Дек</h1>
+  <p><strong>Дек</strong> або <strong>двобічна черга</strong> - це впорядкована лінійна динамічно змінювана структура даних, елементи якої можуть додаватись як на початок, так і в кінець.
+  </p>
+  <p>
+  Основними операціями роботи з деком є: 
+  <ul><li>NEW - створення порожнього дека;</li>
+  <li>PUSHBACK - додавання елемента в хвіст дека;</li>
+  <li>PUSHFRONT - додавання елемента в голову дека;</li>
+  <li>POPBACK - вибірка елемента з хвоста дека;</li>
+  <li>POPFRONT - вибірка елемента з голови дека;</li>
+  <li>EMPTY - перевірка, чи порожній дек.</li>
+  </ul>
+  </p> 
+  <img class="pictures" src="dequeue.png" alt="Dequeue" width="320" height="250">
+  <a href="deque.html" class="button">Створити новий дек</a>
+</div>
+</div>
 </body>
 </html>
